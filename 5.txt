@@ -1,24 +1,22 @@
-# Assignment 5
-
-
-
+# Hash Table implementation using Chaining
 
 class HashTable:
+    # initialize hash table
     def __init__(self, size):
         self.size = size
-        self.table = [[] for _ in range(size)]  # Chaining using lists
+        self.table = [[] for _ in range(size)]   # list of empty lists
 
-    # Division method hash function
+    # division method hash function
     def hash_function(self, key):
         return key % self.size
 
-    # Insert key
+    # insert key
     def insert(self, key):
         index = self.hash_function(key)
         self.table[index].append(key)
         print(f"Inserted {key} at index {index}")
 
-    # Search key
+    # search key
     def search(self, key):
         index = self.hash_function(key)
         if key in self.table[index]:
@@ -28,7 +26,18 @@ class HashTable:
             print(f"{key} not found")
             return False
 
-    # Display hash table
+    # delete key
+    def delete(self, key):
+        index = self.hash_function(key)
+        if key in self.table[index]:
+            self.table[index].remove(key)
+            print(f"{key} deleted from index {index}")
+            return True
+        else:
+            print(f"{key} not found, cannot delete")
+            return False
+
+    # display hash table
     def display(self):
         print("\nHash Table:")
         for i, chain in enumerate(self.table):
@@ -36,14 +45,14 @@ class HashTable:
 
 
 # Example usage
-ht = HashTable(7)  # Table size 7
-
-keys = [10, 20, 15, 7, 5, 32]
+ht = HashTable(5)   # table size 5
+keys = [12, 8, 56, 43, 88]
 
 for key in keys:
     ht.insert(key)
 
 ht.display()
 
-ht.search(15)
-ht.search(99)
+ht.search(56)   # search key
+ht.delete(43)   # delete key
+ht.display()    # display updated table
