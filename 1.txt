@@ -1,0 +1,59 @@
+Assignment 1
+
+
+# --------------- a) Linear and Binary Search with User Input ---------------------
+
+# Taking customer list from user
+customer_list = list(map(int, input("Enter customer IDs separated by spaces: ").split()))
+
+print("\nCustomer list entered:", customer_list)
+
+# --------------- Linear Search ---------------------
+
+def linear_search(customer_list, target_id):
+    for i in range(len(customer_list)):
+        if customer_list[i] == target_id:
+            return i   # return index if found
+    return -1          # return -1 if not found
+
+# Take ID to search
+search_id = int(input("\nEnter ID to be searched (Linear Search): "))
+found = linear_search(customer_list, search_id)
+
+if found != -1:
+    print(f"✅ Customer ID {search_id} found in list at index {found}")
+else:
+    print(f"❌ Customer ID {search_id} not found in list")
+
+
+# --------------- Binary Search ---------------------
+
+# Sort the list (Binary search requires sorted list)
+customer_list.sort()
+print("\nSorted customer list for Binary Search:", customer_list)
+
+def binary_search(customer_list, target_id):
+    low = 0
+    high = len(customer_list) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+        guess = customer_list[mid]
+
+        if guess == target_id:
+            return mid      # found at index mid
+        elif guess < target_id:
+            low = mid + 1   # search right half
+        else:
+            high = mid - 1  # search left half
+
+    return -1               # not found
+
+# Take ID to search
+search_id = int(input("\nEnter ID to be searched (Binary Search): "))
+found = binary_search(customer_list, search_id)
+
+if found != -1:
+    print(f"✅ Customer ID {search_id} found in list at index {found}")
+else:
+    print(f"❌ Customer ID {search_id} does not exist in list")
