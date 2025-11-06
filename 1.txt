@@ -1,12 +1,20 @@
-# ---------------------- Assignment 1 ----------------------
+# ======================================================
+#                   Assignment 1
+# ======================================================
 # a) Linear and Binary Search with User Input
+# ======================================================
+
+
+# ---------------- Linear Search Function ----------------
 
 def linear_search(customer_list, target_id):
     for i in range(len(customer_list)):
         if customer_list[i] == target_id:
-            return i   # return index if found
-    return -1          # return -1 if not found
+            return i     # return index if found
+    return -1            # return -1 if not found
 
+
+# ---------------- Binary Search Function ----------------
 
 def binary_search(customer_list, target_id):
     low = 0
@@ -17,31 +25,34 @@ def binary_search(customer_list, target_id):
         guess = customer_list[mid]
 
         if guess == target_id:
-            return mid      # found at index mid
+            return mid        # found at index mid
         elif guess < target_id:
-            low = mid + 1   # search right half
+            low = mid + 1     # search right half
         else:
-            high = mid - 1  # search left half
+            high = mid - 1    # search left half
 
-    return -1               # not found
+    return -1                 # not found
 
+
+# ---------------- Main Program Menu ----------------
 
 while True:
-    print("\n-------------------- MENU --------------------")
+    print("\n==================== MENU ====================")
     print("1. Enter Customer List")
     print("2. Linear Search")
     print("3. Binary Search")
     print("4. Exit")
+    print("==============================================")
 
     choice = input("Enter your choice (1-4): ")
 
     if choice == '1':
-        customer_list = list(map(int, input("Enter customer IDs separated by spaces: ").split()))
+        customer_list = list(map(int, input("\nEnter customer IDs separated by spaces: ").split()))
         print("\nCustomer list entered:", customer_list)
 
     elif choice == '2':
         if 'customer_list' not in locals():
-            print("Please enter the customer list first!")
+            print("\nPlease enter the customer list first!")
         else:
             search_id = int(input("\nEnter ID to be searched (Linear Search): "))
             found = linear_search(customer_list, search_id)
@@ -52,7 +63,7 @@ while True:
 
     elif choice == '3':
         if 'customer_list' not in locals():
-            print("Please enter the customer list first!")
+            print("\nPlease enter the customer list first!")
         else:
             customer_list.sort()
             print("\nSorted customer list for Binary Search:", customer_list)
@@ -64,8 +75,8 @@ while True:
                 print(f"❌ Customer ID {search_id} does not exist in list")
 
     elif choice == '4':
-        print("Exiting program.")
+        print("\nExiting program. Thank you!")
         break
 
     else:
-        print("Invalid choice. Please enter a number between 1 and 4.")
+        print("\nInvalid choice! Please enter a number between 1 and 4.")
