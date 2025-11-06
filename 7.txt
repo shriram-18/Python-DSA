@@ -1,0 +1,65 @@
+Assignment 7
+
+# Sample locations and edges
+locations = ['A', 'B', 'C', 'D', 'E']
+
+# Adjacency matrix for DFS (rows correspond to A,B,C,D,E)
+adj_matrix = [
+    [0, 1, 1, 0, 0],  # A
+    [1, 0, 1, 1, 0],  # B
+    [1, 1, 0, 0, 1],  # C
+    [0, 1, 0, 0, 1],  # D
+    [0, 0, 1, 1, 0]   # E
+]
+
+# Adjacency list for BFS (names as keys)
+adj_list = {
+    'A': ['B', 'C'],
+    'B': ['A', 'C', 'D'],
+    'C': ['A', 'B', 'E'],
+    'D': ['B', 'E'],
+    'E': ['C', 'D']
+}
+
+# ---- DFS using adjacency matrix (iterative) ----
+def dfs(start):
+    visited = [False] * len(locations)        # visited flags by index
+    result = []                               # stores visited order
+    stack = [locations.index(start)]          # start with index of start node
+
+    while stack:
+        node = stack.pop()                    # take last item
+        if not visited[node]:
+            visited[node] = True
+            result.append(locations[node])    # record name
+
+            # add neighbors in reversed index order so that
+            # lower-index neighbors are popped first (optional ordering)
+            for i in reversed(range(len(locations))):
+                if adj_matrix[node][i] == 1 and not visited[i]:
+                    stack.append(i)
+    return result
+
+
+# ---- BFS using adjacency list ----
+from collections import deque
+
+def bfs(start):
+    visited = {loc: False for loc in locations}
+    result = []
+    queue = deque([start])
+    visited[start] = True
+
+    while queue:
+        node = queue.popleft()
+        result.append(node)
+        for neighbor in adj_list[node]:
+            if not visited[neighbor]:
+                visited[neighbor] = True
+                queue.append(neighbor)
+    return result
+
+
+# ---- Run traversals from 'A' ----
+print("DFS Sequence:", dfs('A'))
+print("BFS Sequence:", bfs('A'))
